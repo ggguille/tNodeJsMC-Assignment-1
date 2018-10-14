@@ -6,12 +6,13 @@
 
 // Dependencies
 const fs = require('fs');
+const config = require('./lib/config');
 const HttpServer = require('./lib/httpServer');
 
 // Instantiate HTTP server
 const httpServer = new HttpServer.Builder('http').build();
 // Start HTTP server
-httpServer.listen(3000);
+httpServer.listen(config.httpPort);
 
 // Get SSL certification
 const sslKey = fs.readFileSync('./ssl/key.pem');
@@ -20,4 +21,4 @@ const httpsServer = new HttpServer.Builder('https')
     .addSSL(sslKey, sslCert)
     .build();
 // Start HTTPS server
-httpsServer.listen(3001);
+httpsServer.listen(config.httpsPort);
